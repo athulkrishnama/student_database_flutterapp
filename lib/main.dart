@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:student_data/db/db_functions/db_functions.dart';
 import 'package:student_data/screens/home.dart';
 import 'package:student_data/screens/splash_screen.dart';
 
-main() {
+main() async {
+  await opendb();
   runApp(MyApp());
 }
 
@@ -19,5 +21,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-
