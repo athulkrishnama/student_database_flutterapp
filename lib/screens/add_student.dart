@@ -40,7 +40,7 @@ class AddStudent extends StatelessWidget {
             children: [
               TextButton(
                 onPressed: () {
-                  clearAllData();
+                  clearDataAlert(context);
                 },
                 child: Text('Clear All'),
               ),
@@ -67,5 +67,31 @@ class AddStudent extends StatelessWidget {
     addStudent(stuModelObj);
     _nameController.text = '';
     _ageController.text = '';
+  }
+
+  clearDataAlert(BuildContext ctx) {
+    return showDialog(
+      context: ctx,
+      builder: (context) => AlertDialog(
+        title: Text("confirm deletion"),
+        content: Text('Are you sure want to delete all data'),
+        actions: [
+          TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text('No')),
+          TextButton(
+              onPressed: () {
+                clearAllData();
+                Navigator.pop(context);
+              },
+              child: Text(
+                'Sure',
+                style: TextStyle(color: Colors.red),
+              )),
+        ],
+      ),
+    );
   }
 }

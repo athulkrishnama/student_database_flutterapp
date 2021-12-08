@@ -41,3 +41,9 @@ Future<void> clearAllData() async {
   await studb.rawQuery('DELETE FROM student');
   getAllStudents();
 }
+
+Future<void> updateStudent(studentModel obj) async {
+  studb.rawUpdate("UPDATE student SET name = ?, age = ? WHERE id =?",
+      [obj.name, obj.age, obj.id]);
+  getAllStudents();
+}
