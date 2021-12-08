@@ -4,6 +4,7 @@ import 'package:student_data/screens/home.dart';
 import 'package:student_data/screens/splash_screen.dart';
 
 main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await opendb();
   runApp(MyApp());
 }

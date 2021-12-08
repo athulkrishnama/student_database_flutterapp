@@ -39,7 +39,9 @@ class AddStudent extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  clearAllData();
+                },
                 child: Text('Clear All'),
               ),
               ElevatedButton.icon(

@@ -6,20 +6,20 @@ ValueNotifier<List<studentModel>> studentModelList = ValueNotifier([]);
 late Database studb;
 Future<void> opendb() async {
   studb = await openDatabase(
-    'Studb',
+    'Stu.db',
     version: 1,
     onCreate: (db, version) async {
-      db.execute(
+      await db.execute(
           'CREATE TABLE student(id INTEGER PRIMARY KEY,name TEXT,age TEXT)');
     },
   );
+  getAllStudents();
 }
 
 Future<void> addStudent(studentModel stumodobj) async {
-  studentModelList.value.add(stumodobj);
-  studentModelList.notifyListeners();
   studb.rawInsert('INSERT INTO student(name,age) VALUES(?,?)',
       [stumodobj.name, stumodobj.age]);
+  getAllStudents();
 }
 
 Future<void> getAllStudents() async {
@@ -28,7 +28,16 @@ Future<void> getAllStudents() async {
   studata.forEach((element) {
     final stuobj = studentModel.toStuModObj(element);
     studentModelList.value.add(stuobj);
-  }
-  );
+  });
   studentModelList.notifyListeners();
+}
+
+Future<void> deleteStudent({required int id}) async {
+  await studb.rawDelete('DELETE FROM student WHERE id=?', [id]);
+  getAllStudents();
+}
+
+Future<void> clearAllData() async {
+  await studb.rawQuery('DELETE FROM student');
+  getAllStudents();
 }
