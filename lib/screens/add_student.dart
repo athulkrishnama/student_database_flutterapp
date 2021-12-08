@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:student_data/db/db_functions/db_functions.dart';
 import 'package:student_data/db/db_model/student_model.dart';
@@ -12,27 +10,27 @@ class AddStudent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(15),
+      padding:const  EdgeInsets.all(15),
       child: Column(
         children: [
           TextFormField(
             controller: _nameController,
-            decoration: InputDecoration(
+            decoration:const  InputDecoration(
               border: OutlineInputBorder(),
               hintText: "Name",
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
           TextFormField(
             controller: _ageController,
-            decoration: InputDecoration(
+            decoration:const  InputDecoration(
               border: OutlineInputBorder(),
               hintText: "Age",
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
           Row(
@@ -42,14 +40,14 @@ class AddStudent extends StatelessWidget {
                 onPressed: () {
                   clearDataAlert(context);
                 },
-                child: Text('Clear All'),
+                child:const  Text('Clear All'),
               ),
               ElevatedButton.icon(
                   onPressed: () {
                     AddButtonClicked();
                   },
-                  icon: Icon(Icons.add),
-                  label: Text("Add Student"))
+                  icon:const  Icon(Icons.add),
+                  label:const  Text("Add Student"))
             ],
           )
         ],
@@ -60,7 +58,7 @@ class AddStudent extends StatelessWidget {
   Future<void> AddButtonClicked() async {
     final name = _nameController.text.trim();
     final age = _ageController.text.trim();
-    if (name.isEmpty || age.isEmpty) {
+    if (name.isEmpty || age.isEmpty || !isNumericUsing_tryParse(age) ) {
       return;
     }
     final stuModelObj = studentModel(name: name, age: age);
@@ -73,20 +71,20 @@ class AddStudent extends StatelessWidget {
     return showDialog(
       context: ctx,
       builder: (context) => AlertDialog(
-        title: Text("confirm deletion"),
-        content: Text('Are you sure want to delete all data'),
+        title:const  Text("confirm deletion"),
+        content:const  Text('Are you sure want to delete all data'),
         actions: [
           TextButton(
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: Text('No')),
+              child:const  Text('No')),
           TextButton(
               onPressed: () {
                 clearAllData();
                 Navigator.pop(context);
               },
-              child: Text(
+              child:const  Text(
                 'Sure',
                 style: TextStyle(color: Colors.red),
               )),
@@ -94,4 +92,18 @@ class AddStudent extends StatelessWidget {
       ),
     );
   }
+  bool isNumericUsing_tryParse(String string) {
+  // Null or empty string is not a number
+  if (string == null || string.isEmpty) {
+    return false;
+  }
+
+  final number = num.tryParse(string);
+
+  if (number == null) {
+    return false;
+  }
+
+  return true;
+}
 }

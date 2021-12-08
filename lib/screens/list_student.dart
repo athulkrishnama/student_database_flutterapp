@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:student_data/db/db_functions/db_functions.dart';
 import 'package:student_data/db/db_model/student_model.dart';
@@ -17,7 +15,7 @@ class ListStudent extends StatelessWidget {
             itemBuilder: (context, index) {
               final stuData = stuList[index];
               return Padding(
-                padding: EdgeInsets.only(left: 5.0, bottom: 2),
+                padding:const  EdgeInsets.only(left: 5.0, bottom: 2),
                 child: ListTile(
                   onLongPress: () {
                     Navigator.of(context).push(MaterialPageRoute(
@@ -35,7 +33,7 @@ class ListStudent extends StatelessWidget {
                         deleteStudent(id: stuData.id!);
                       }
                     },
-                    icon: Icon(
+                    icon:const  Icon(
                       Icons.delete,
                       color: Colors.red,
                     ),
@@ -43,13 +41,13 @@ class ListStudent extends StatelessWidget {
                 ),
               );
             },
-            separatorBuilder: (context, index) => Divider(),
+            separatorBuilder: (context, index) => const Divider(),
             itemCount: stuList.length,
           );
         });
   }
 
-  final snackbaralert = SnackBar(
+  final snackbaralert =const  SnackBar(
     content: Text('Longpress to updata data'),
     duration: Duration(milliseconds: 1000),
     margin: EdgeInsets.all(15),

@@ -12,34 +12,34 @@ class UpdateScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Update Student Details'),
+        title: const Text('Update Student Details'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(15),
+        padding: const EdgeInsets.all(15),
         child: Column(
           children: [
             TextFormField(
               controller: _nameController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   border: OutlineInputBorder(), hintText: 'New Name'),
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             TextFormField(
               controller: _ageController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   border: OutlineInputBorder(), hintText: 'New Age'),
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             ElevatedButton.icon(
                 onPressed: () {
                   updateStudentData(context);
                 },
-                icon: Icon(Icons.update),
-                label: Text('Update'))
+                icon: const Icon(Icons.update),
+                label: const Text('Update'))
           ],
         ),
       ),
@@ -50,7 +50,10 @@ class UpdateScreen extends StatelessWidget {
     final id = obj.id;
     String name = obj.name;
     String age = obj.age;
-
+    if (!isNumericUsing_tryParse(_ageController.text.trim())) {
+      return;
+      
+    }
     if (_nameController.text.isNotEmpty) {
       name = _nameController.text.trim();
     }
@@ -60,5 +63,20 @@ class UpdateScreen extends StatelessWidget {
     final stuobj = studentModel(name: name, age: age, id: id);
     updateStudent(stuobj);
     Navigator.pop(ctx);
+  }
+
+  bool isNumericUsing_tryParse(String string) {
+    // Null or empty string is not a number
+    if (string == null || string.isEmpty) {
+      return false;
+    }
+
+    final number = num.tryParse(string);
+
+    if (number == null) {
+      return false;
+    }
+
+    return true;
   }
 }
