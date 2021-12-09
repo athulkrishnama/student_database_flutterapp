@@ -52,7 +52,6 @@ class UpdateScreen extends StatelessWidget {
     String age = obj.age;
     if (!isNumericUsing_tryParse(_ageController.text.trim())) {
       return;
-      
     }
     if (_nameController.text.isNotEmpty) {
       name = _nameController.text.trim();
@@ -67,8 +66,8 @@ class UpdateScreen extends StatelessWidget {
 
   bool isNumericUsing_tryParse(String string) {
     // Null or empty string is not a number
-    if (string == null || string.isEmpty) {
-      return false;
+    if (string.isEmpty) {
+      return true;
     }
 
     final number = num.tryParse(string);
